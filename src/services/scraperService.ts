@@ -1,8 +1,6 @@
 import axios from "axios";
 import * as cheerio from "cheerio";
-import { PrismaClient } from "@prisma/client";
-
-const prisma = new PrismaClient();
+import prisma from "../client";
 
 process.env.NODE_TLS_REJECT_UNAUTHORIZED = "0";
 

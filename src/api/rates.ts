@@ -1,28 +1,25 @@
 import { Router } from "express";
-import { PrismaClient } from "@prisma/client";
-
-const prisma = new PrismaClient();
+import prisma from "../client";
 
 const router = Router();
 
 router.get("/current", (_, res) => {
-    try {
-        prisma.exchange_Rate.findFirst({
-            orderBy: { createdAt: "desc" },
-        }).then((rate) => {
-            if (!rate) {
-                return res.status(404).json({ message: "Rate not found" });
-            }
-            const data = {
-                rate: rate.rate,
-                createdAt: rate.createdAt.toISOString().split('T')[0],
-            }
-            res.json(data);
-        });
-    }
-    catch (error) {
+    prisma.exchange_Rate.findFirst({
+        orderBy: { createdAt: "desc" },
+    })
+    .then((rate) => {
+        if (!rate) {
+            return res.status(404).json({ message: "Rate not found" });
+        }
+        const data = {
+            rate: rate.rate,
+            createdAt: rate.createdAt.toISOString().split('T')[0],
+        };
+        res.json(data);
+    })
+    .catch(() => {
         res.status(500).json({ message: "Internal server error" });
-    }
+    });
 });
 
 router.get("/history", async (req, res): Promise<any> => {
