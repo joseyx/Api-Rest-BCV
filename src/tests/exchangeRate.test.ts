@@ -29,7 +29,7 @@ describe("GET /current", () => {
     expect(response.status).toBe(200);
     expect(response.body).toEqual({
       rate: mockRate.rate,
-      createdAt: "2025-02-01",
+      date: "2025-02-01",
     });
   });
 
@@ -64,8 +64,8 @@ describe("GET /history", () => {
 
     expect(response.status).toBe(200);
     expect(response.body).toEqual([
-      { rate: 100, createdAt: "2025-01-01" },
-      { rate: 105, createdAt: "2025-01-02" },
+      { rate: 100, date: "2025-01-01" },
+      { rate: 105, date: "2025-01-02" },
     ]);
   });
 
@@ -82,8 +82,8 @@ describe("GET /history", () => {
 
     expect(response.status).toBe(200);
     expect(response.body).toEqual([
-      { rate: 100, createdAt: "2025-01-01" },
-      { rate: 105, createdAt: "2025-01-02" },
+      { rate: 100, date: "2025-01-01" },
+      { rate: 105, date: "2025-01-02" },
     ]);
   });
 

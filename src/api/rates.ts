@@ -3,44 +3,47 @@ import prisma from "../client";
 
 const router = Router();
 
-router.get("/current", (_, res) => {
-    prisma.exchange_Rate.findFirst({
-        orderBy: { createdAt: "desc" },
-    })
-    .then((rate) => {
+router.get("/current", async (_, res): Promise<void> => {
+    try {
+        const rate = await prisma.exchange_Rate.findFirst({
+            orderBy: { createdAt: "desc" },
+        });
+
         if (!rate) {
-            return res.status(404).json({ message: "Rate not found" });
+            res.status(404).json({ message: "Rate not found" });
+            return;
         }
+
         const data = {
             rate: rate.rate,
-            createdAt: rate.createdAt.toISOString().split('T')[0],
+            date: rate.createdAt.toISOString().split('T')[0],
         };
+
         res.json(data);
-    })
-    .catch(() => {
+    } catch (error) {
         res.status(500).json({ message: "Internal server error" });
-    });
+    }
 });
 
-router.get("/history", async (req, res): Promise<any> => {
+router.get("/history", async (req, res): Promise<void> => {
     try {
         const { start_date, end_date } = req.query;
 
-        // Validar que start y end sean fechas válidas
         const startDate = start_date ? new Date(start_date as string) : null;
         const endDate = end_date ? new Date(end_date as string) : null;
 
-        // Ajustar endDate para incluir todo el día
         if (endDate) {
             endDate.setHours(23, 59, 59, 999);
         }
 
         if (startDate && isNaN(startDate.getTime())) {
-            return res.status(400).json({ message: "Invalid start date" });
+            res.status(400).json({ message: "Invalid start date" });
+            return;
         }
 
         if (endDate && isNaN(endDate.getTime())) {
-            return res.status(400).json({ message: "Invalid end date" });
+            res.status(400).json({ message: "Invalid end date" });
+            return;
         }
 
         const where: any = {};
@@ -53,17 +56,17 @@ router.get("/history", async (req, res): Promise<any> => {
         });
 
         if (!rates.length) {
-            return res.status(404).json({ message: "Rates not found" });
+            res.status(404).json({ message: "Rates not found" });
+            return;
         }
 
         const data = rates.map((rate) => ({
             rate: rate.rate,
-            createdAt: rate.createdAt.toISOString().split("T")[0],
+            date: rate.createdAt.toISOString().split("T")[0],
         }));
 
         res.json(data);
     } catch (error) {
-        console.error("Error fetching rates:", error);
         res.status(500).json({ message: "Internal server error" });
     }
 });
