@@ -34,7 +34,7 @@ describe("GET /current", () => {
   });
 
   it("debe devolver 404 si no se encuentra un rate", async () => {
-    (prisma.exchange_Rate.findFirst as jest.Mock).mockResolvedValue(null);;
+    (prisma.exchange_Rate.findFirst as jest.Mock).mockResolvedValue(null);
 
     const response = await request(app).get("/current");
 
@@ -58,7 +58,7 @@ describe("GET /history", () => {
       { rate: 100, createdAt: new Date("2025-01-01") },
       { rate: 105, createdAt: new Date("2025-01-02") },
     ];
-    (prisma.exchange_Rate.findMany as jest.Mock).mockResolvedValue(mockRates);;
+    (prisma.exchange_Rate.findMany as jest.Mock).mockResolvedValue(mockRates);
 
     const response = await request(app).get("/history");
 
@@ -74,7 +74,7 @@ describe("GET /history", () => {
       { rate: 100, createdAt: new Date("2025-01-01") },
       { rate: 105, createdAt: new Date("2025-01-02") },
     ];
-    (prisma.exchange_Rate.findMany as jest.Mock).mockResolvedValue(mockRates);;
+    (prisma.exchange_Rate.findMany as jest.Mock).mockResolvedValue(mockRates);
 
     const response = await request(app).get(
       "/history?start_date=2025-01-01&end_date=2025-01-02"
@@ -106,7 +106,7 @@ describe("GET /history", () => {
   });
 
   it("debe devolver 404 cuando no se encuentran rates", async () => {
-    (prisma.exchange_Rate.findMany as jest.Mock).mockResolvedValue([]);;
+    (prisma.exchange_Rate.findMany as jest.Mock).mockResolvedValue([]);
 
     const response = await request(app).get(
       "/history?start_date=2025-01-01&end_date=2025-01-02"
