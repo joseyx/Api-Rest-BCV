@@ -1,57 +1,60 @@
 # API Challenge
 
-Este proyecto es una API REST construida con Express y TypeScript que permite obtener y almacenar tasas de cambio. La API incluye documentación generada con Swagger y utiliza Prisma como ORM para interactuar con una base de datos PostgreSQL.
+This project is a REST API built with Express and TypeScript that allows you to obtain and store exchange rates. The API includes documentation generated with Swagger and uses Prisma as an ORM to interact with a PostgreSQL database.
 
-## Requisitos
+## Languages
+- [Español (Spanish)](README.es.md)
+
+## Requirements
 
 - Node.js (v23)
 - PostgreSQL
 - npm (v11)
 
-## Instalación
+## Installation
 
-1. Clona el repositorio:
+1. Clone the repository:
 
-   ```bash
-   git clone https://github.com/tu-usuario/api-challenge.git
-   cd api-challenge
-   ```
+  ```bash
+  git clone https://github.com/your-username/api-challenge.git
+  cd api-challenge
+  ```
 
-2. Instala las dependencias:
+2. Install the dependencies:
 
-   ```bash
-   npm install
-   ```
+  ```bash
+  npm install
+  ```
 
-3. Configura las variables de entorno:
+3. Configure the environment variables:
 
-  Crea un archivo `.env` en la raíz del proyecto con el siguiente contenido:
+  Create a `.env` file at the root of the project with the following content:
 
-   ```properties
-   DATABASE_URL="postgresql://usuario:contraseña@localhost:5432/nombre_base_datos?schema=public"
-   ```
+  ```properties
+  DATABASE_URL="postgresql://user:password@localhost:5432/database_name?schema=public"
+  ```
 
-4. Configura la base de datos:
+4. Set up the database:
 
-   Asegúrate de tener PostgreSQL instalado y ejecutándose. Luego, ejecuta las migraciones de Prisma para configurar la base de datos:
+  Make sure you have PostgreSQL installed and running. Then, run the Prisma migrations to set up the database:
 
-   ```bash
-   npx prisma migrate dev --name init
-   ```
+  ```bash
+  npx prisma migrate dev --name init
+  ```
 
-## Ejecución
+## Running
 
-### Modo Desarrollo
+### Development Mode
 
-Para ejecutar el proyecto en modo desarrollo con recarga automática:
+To run the project in development mode with automatic reload:
 
 ```bash
 npm run dev
 ```
 
-### Modo Producción
+### Production Mode
 
-Para compilar y ejecutar el proyecto en modo producción:
+To compile and run the project in production mode:
 
 ```bash
 npm run build
@@ -60,67 +63,67 @@ npm start
 
 ## Endpoints
 
-### Obtener la tasa de cambio actual
+### Get the current exchange rate
 
 ```http
 GET /api/rates/current
 ```
 
-#### Respuestas
+#### Responses
 
-- **200 OK**: Devuelve la tasa de cambio actual.
-- **404 Not Found**: No se encontró ninguna tasa de cambio.
-- **500 Internal Server Error**: Error interno del servidor.
+- **200 OK**: Returns the current exchange rate.
+- **404 Not Found**: No exchange rate found.
+- **500 Internal Server Error**: Internal server error.
 
-### Obtener el historial de tasas de cambio
+### Get the exchange rate history
 
 ```http
 GET /api/rates/history
 ```
 
-#### Parámetros de Query
+#### Query Parameters
 
-- start_date (Opcional): Fecha de inicio del rango (formato `YYYY-MM-DD`).
+- start_date (Optional): Start date of the range (format `YYYY-MM-DD`).
 
-- end_date (Opcional): Fecha de fin del rango (formato `YYYY-MM-DD`).
+- end_date (Optional): End date of the range (format `YYYY-MM-DD`).
 
-#### Respuestas
+#### Responses
 
-- **200 OK**: Devuelve el historial de tasas de cambio.
-- **400 Bad Request**: Fecha de inicio o fin no válida.
-- **404 Not Found**: No se encontraron tasas de cambio en el rango especificado.
-- **500 Internal Server Error**: Error interno del servidor.
+- **200 OK**: Returns the exchange rate history.
+- **400 Bad Request**: Invalid start or end date.
+- **404 Not Found**: No exchange rates found in the specified range.
+- **500 Internal Server Error**: Internal server error.
 
-## Documentación de la API
+## API Documentation
 
-La documentación de la API está disponible en Swagger. Una vez que el servidor esté en ejecución, puedes acceder a la documentación en:
+The API documentation is available in Swagger. Once the server is running, you can access the documentation at:
 
 ```
 http://localhost:3000/api-docs
 ```
 
-## Tareas Programadas
+## Scheduled Tasks
 
-El proyecto incluye una tarea programada que ejecuta un scraping diario a las 9:15 AM para obtener la tasa de cambio y almacenarla en la base de datos.
+The project includes a scheduled task that performs a daily scraping at 9:15 AM to obtain the exchange rate and store it in the database.
 
-## Pruebas
+## Tests
 
-Para ejecutar las pruebas unitarias:
+To run the unit tests:
 
 ```bash
 npm test
 ```
 
-## Estructura del Proyecto
+## Project Structure
 
-- **src/**: Contiene el código fuente del proyecto.
-  - **api/**: Contiene los archivos de rutas de la API.
-  - **jobs/**: Contiene las tareas programadas.
-  - **services/**: Contiene los servicios de scraping.
-  - **tests/**: Contiene los archivos de pruebas unitarias.
-  - **client.ts**: Configuración del cliente de Prisma.
-  - **server.ts**: Configuración y arranque del servidor.
-  - **swaggerOptions.ts**: Configuración de Swagger.
-- **prisma/**: Contiene el esquema de Prisma y las migraciones.
-- **.env**: Archivo de variables de entorno.
-- **package.json**: Archivo de configuración de npm.
+- **src/**: Contains the project's source code.
+  - **api/**: Contains the API route files.
+  - **jobs/**: Contains the scheduled tasks.
+  - **services/**: Contains the scraping services.
+  - **tests/**: Contains the unit test files.
+  - **client.ts**: Prisma client configuration.
+  - **server.ts**: Server configuration and startup.
+  - **swaggerOptions.ts**: Swagger configuration.
+- **prisma/**: Contains the Prisma schema and migrations.
+- **.env**: Environment variables file.
+- **package.json**: npm configuration file.
