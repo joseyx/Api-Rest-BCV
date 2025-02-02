@@ -16,8 +16,8 @@ This project is a REST API built with Express and TypeScript that allows you to 
 1. Clone the repository:
 
   ```bash
-  git clone https://github.com/your-username/api-challenge.git
-  cd api-challenge
+   git clone https://github.com/joseyx/Api-Rest-BCV.git
+   cd Api-Rest-BCV
   ```
 
 2. Install the dependencies:

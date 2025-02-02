@@ -13,8 +13,8 @@ Este proyecto es una API REST construida con Express y TypeScript que permite ob
 1. Clona el repositorio:
 
    ```bash
-   git clone https://github.com/tu-usuario/api-challenge.git
-   cd api-challenge
+   git clone https://github.com/joseyx/Api-Rest-BCV.git
+   cd Api-Rest-BCV
    ```
 
 2. Instala las dependencias:
