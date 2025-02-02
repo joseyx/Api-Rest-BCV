@@ -3,6 +3,31 @@ import prisma from "../client";
 
 const router = Router();
 
+/**
+ * @swagger
+ * /api/rates/current:
+ *   get:
+ *     summary: Obtiene la tasa de cambio actual.
+ *     tags:
+ *      - Rates
+ *     responses:
+ *       200:
+ *         description: Tasa de cambio actual.
+ *         content:
+ *           application/json:
+ *             schema:
+ *               type: object
+ *               properties:
+ *                 rate:
+ *                   type: number
+ *                 date:
+ *                   type: string
+ *                   format: date
+ *       404:
+ *         description: Rate not found.
+ *       500:
+ *         description: Internal server error.
+ */
 router.get("/current", async (_, res): Promise<void> => {
     try {
         const rate = await prisma.exchange_Rate.findFirst({
@@ -25,6 +50,48 @@ router.get("/current", async (_, res): Promise<void> => {
     }
 });
 
+/**
+ * @swagger
+ * /api/rates/history:
+ *   get:
+ *     summary: Obtiene el historial de tasas de cambio dentro de un rango de fechas.
+ *     tags:
+ *      - Rates
+ *     parameters:
+ *       - in: query
+ *         name: start_date
+ *         schema:
+ *           type: string
+ *           format: date
+ *         description: Fecha de inicio del rango.
+ *       - in: query
+ *         name: end_date
+ *         schema:
+ *           type: string
+ *           format: date
+ *         description: Fecha de fin del rango.
+ *     responses:
+ *       200:
+ *         description: Historial de tasas de cambio.
+ *         content:
+ *           application/json:
+ *             schema:
+ *               type: array
+ *               items:
+ *                 type: object
+ *                 properties:
+ *                   rate:
+ *                     type: number
+ *                   date:
+ *                     type: string
+ *                     format: date
+ *       400:
+ *         description: Invalid date.
+ *       404:
+ *         description: Rates not found.
+ *       500:
+ *         description: Internal server error.
+ */
 router.get("/history", async (req, res): Promise<void> => {
     try {
         const { start_date, end_date } = req.query;
