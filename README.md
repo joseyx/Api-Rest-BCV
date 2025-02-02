@@ -42,6 +42,14 @@ This project is a REST API built with Express and TypeScript that allows you to 
   npx prisma migrate dev --name init
   ```
 
+5. Seed the database with pre-generated data:
+
+  Run the seed script to insert predefined data into the database:
+
+  ```bash
+  npm run seed
+  ```
+
 ## Running
 
 ### Development Mode

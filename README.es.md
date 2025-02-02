@@ -37,7 +37,14 @@ Este proyecto es una API REST construida con Express y TypeScript que permite ob
 
    ```bash
    npx prisma migrate dev --name init
-   ```
+    ```
+  5. Poblar la base de datos con datos pre-generados:
+
+  Ejecuta el script de seed para insertar datos predefinidos en la base de datos:
+
+  ```bash
+  npm run seed
+  ```
 
 ## Ejecución
 
